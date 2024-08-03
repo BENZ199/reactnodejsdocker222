@@ -1,0 +1,31 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main  # Change this if your main branch is named differently
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up SSH 
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AZURE_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 102.37.221.106 >> ~/.ssh/known_hosts
+
+      - name: Connect to VM and run docker-compose
+        run: |
+          ssh -i ~/.ssh/id_rsa azureuser@102.37.221.106 << 'EOF'
+            echo 'Connected to Azure VM'
+            # Create a directory for the repo
+            mkdir -p ~/repo
+            cd ~/repo
+            # Clone the repository
+            git clone https://github.com/BENZ199/reactnodejsdocker222.git .
+            # Run Docker Compose
+            sudo docker-compose up -d --build
+          EOF
