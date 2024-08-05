@@ -28,6 +28,6 @@ jobs:
             mkdir -p ~/repo
             cd ~/repo
             # Clone the repository
-            git clone https://github.com/BENZ199/compose_for_reactnodejsmysqlwithadminer.git .
+            git clone https://github.com/BENZ199/compose_for_reactnodejsdocker22.git .
             
           EOF
