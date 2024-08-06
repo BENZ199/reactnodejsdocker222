@@ -18,11 +18,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.AZURE_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 102.37.249.102 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 20.106.209.242 >> ~/.ssh/known_hosts
 
       - name: Connect to VM and run docker-compose
         run: |
-          ssh -i ~/.ssh/id_rsa azureuser@102.37.249.102 << 'EOF'
+          ssh -i ~/.ssh/id_rsa azureuser@20.106.209.242 << 'EOF'
             echo 'Connected to Azure VM'
             # Create a directory for the repo
             mkdir -p ~/repo
